@@ -37,6 +37,9 @@
         <springdoc.openapi.starter.webmvc.ui.version>2.0.2</springdoc.openapi.starter.webmvc.ui.version>
         <spring.boot.starter.validation.version>3.3.0</spring.boot.starter.validation.version>
         <spring.tx.version>6.1.8</spring.tx.version>
+        <mybatis.plus.version>3.5.5</mybatis.plus.version>
+        <freemarker.version>2.3.32</freemarker.version>
+        <mysql.connector.version>8.0.33</mysql.connector.version>
     </properties>
 
     <dependencies>
@@ -90,6 +93,26 @@
                 <groupId>org.springframework</groupId>
                 <artifactId>spring-tx</artifactId>
                 <version>${spring.tx.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-generator</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>com.baomidou</groupId>
+                <artifactId>mybatis-plus-core</artifactId>
+                <version>${mybatis.plus.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>org.freemarker</groupId>
+                <artifactId>freemarker</artifactId>
+                <version>${freemarker.version}</version>
+            </dependency>
+            <dependency>
+                <groupId>mysql</groupId>
+                <artifactId>mysql-connector-java</artifactId>
+                <version>${mysql.connector.version}</version>
             </dependency>
         </dependencies>
     </dependencyManagement>
