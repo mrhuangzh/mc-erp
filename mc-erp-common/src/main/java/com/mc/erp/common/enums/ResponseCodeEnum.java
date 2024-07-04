@@ -19,6 +19,7 @@ public enum ResponseCodeEnum {
     ERROR(50001, "请求发生错误"),
     PARAM_ERROR(50002, "请求参数错误"),
     DB_ERROR(50003, "数据库操作异常"),
+    NO_RESOURCE(50004, "未找到资源"),
 
     SYSTEM_EXCEPTION(99999, "系统异常"),
 

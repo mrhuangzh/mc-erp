@@ -16,6 +16,7 @@ import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.servlet.resource.NoResourceFoundException;
 
 import java.util.List;
 
@@ -83,6 +84,18 @@ public class GlobalExceptionHandler {
     public CommonResponse<Object> dataIntegrityViolationException(DataIntegrityViolationException e) {
         log.error("数据库操作异常，错误信息：{}", e.getMessage());
         return CommonResponse.failed(ResponseCodeEnum.DB_ERROR.getCode(), e.getMessage());
+    }
+
+    /**
+     * 未找到资源
+     *
+     * @param e
+     * @return
+     */
+    @ExceptionHandler({NoResourceFoundException.class})
+    public CommonResponse<Object> noResourceFoundException(Exception e) {
+        log.error("请求发生错误，错误信息：{}", e.getMessage());
+        return CommonResponse.failed(ResponseCodeEnum.NO_RESOURCE.getCode(), e.getMessage());
     }
 
     /**
