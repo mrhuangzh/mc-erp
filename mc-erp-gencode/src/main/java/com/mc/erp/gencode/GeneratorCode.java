@@ -53,6 +53,8 @@ public class GeneratorCode {
                     if (typeCode == Types.SMALLINT) {
                         // 自定义类型转换
                         return DbColumnType.INTEGER;
+                    } else if (typeCode == Types.BIT){
+                        return DbColumnType.INTEGER;
                     }
                     return typeRegistry.getColumnType(metaInfo);
 
