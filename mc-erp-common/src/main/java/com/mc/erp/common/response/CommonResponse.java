@@ -1,5 +1,6 @@
 package com.mc.erp.common.response;
 
+import com.mc.erp.common.enums.ErrorCodeEnumInter;
 import com.mc.erp.common.enums.ResponseCodeEnum;
 import io.swagger.v3.oas.annotations.media.Schema;
 import lombok.Builder;
@@ -100,6 +101,16 @@ public class CommonResponse<T> implements Serializable {
     public static <T> CommonResponse<T> failed(ResponseCodeEnum errorCode) {
         return new CommonResponse<T>(errorCode.getCode(), errorCode.getMessage(), null);
     }
+
+    /**
+     * 失败返回结果
+     *
+     * @param error 错误码
+     */
+    public static <T> CommonResponse<T> failed(ErrorCodeEnumInter error) {
+        return new CommonResponse<T>(error.getCode(), error.getMessage(), null);
+    }
+
 
     /**
      * 失败返回结果

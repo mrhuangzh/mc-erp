@@ -68,7 +68,8 @@ public class GlobalExceptionHandler {
      * @param req
      * @return
      */
-    @ExceptionHandler(value = HttpRequestMethodNotSupportedException.class)
+    @ExceptionHandler({HttpRequestMethodNotSupportedException.class,
+            HttpMediaTypeNotSupportedException.class})
     public CommonResponse<Object> httpRequestMethodNotSupportedException(HttpRequestMethodNotSupportedException req) {
         log.error("请求方式不被支持，错误信息：", req);
         return CommonResponse.failed(ResponseCodeEnum.REQUEST_METHOD_NOT_SUPPORT);
@@ -83,7 +84,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = DataIntegrityViolationException.class)
     public CommonResponse<Object> dataIntegrityViolationException(DataIntegrityViolationException e) {
         log.error("数据库操作异常，错误信息：{}", e.getMessage());
-        return CommonResponse.failed(ResponseCodeEnum.DB_ERROR.getCode(), e.getMessage());
+        return CommonResponse.failed(ResponseCodeEnum.DB_ERROR);
     }
 
     /**
@@ -95,7 +96,7 @@ public class GlobalExceptionHandler {
     @ExceptionHandler({NoResourceFoundException.class})
     public CommonResponse<Object> noResourceFoundException(Exception e) {
         log.error("请求发生错误，错误信息：{}", e.getMessage());
-        return CommonResponse.failed(ResponseCodeEnum.NO_RESOURCE.getCode(), e.getMessage());
+        return CommonResponse.failed(ResponseCodeEnum.NO_RESOURCE);
     }
 
     /**
@@ -105,11 +106,10 @@ public class GlobalExceptionHandler {
      * @return
      */
     @ExceptionHandler({IllegalArgumentException.class,
-            MissingServletRequestParameterException.class,
-            HttpMediaTypeNotSupportedException.class,})
+            MissingServletRequestParameterException.class})
     public CommonResponse<Object> handleMultiException(Exception e) {
         log.error("请求发生错误，错误信息：{}", e.getMessage());
-        return CommonResponse.failed(ResponseCodeEnum.ERROR.getCode(), e.getMessage());
+        return CommonResponse.failed(ResponseCodeEnum.PARAM_ERROR);
     }
 
 
