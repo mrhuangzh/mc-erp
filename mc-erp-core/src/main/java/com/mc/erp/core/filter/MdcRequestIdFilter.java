@@ -29,7 +29,6 @@ public class MdcRequestIdFilter extends OncePerRequestFilter {
 
     @Override
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain) throws ServletException, IOException {
-        MDC.put(LogTraceEnum.TRACE_ID.getAttribute(), UUID.randomUUID().toString());
         try {
             String requestId = request.getHeader(RequestHeaderEnum.REQUEST_ID_KEY.getAttribute());
             if (requestId == null) {
@@ -38,6 +37,7 @@ public class MdcRequestIdFilter extends OncePerRequestFilter {
                         Thread.currentThread().getId(), requestId);
             }
             MDC.put(RequestHeaderEnum.REQUEST_ID_KEY.getAttribute(), requestId);
+            MDC.put(LogTraceEnum.TRACE_ID.getAttribute(), requestId);
             filterChain.doFilter(request, response);
         } finally {
             MDC.remove(RequestHeaderEnum.REQUEST_ID_KEY.getAttribute());
