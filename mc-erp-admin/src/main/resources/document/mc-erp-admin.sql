@@ -21,6 +21,44 @@ FLUSH PRIVILEGES;
 -- 切换到 mc-erp-admin 数据库
 USE `mc-erp-admin`;
 
+
+-- ----------------------------
+-- Table structure for t_dept
+-- ----------------------------
+DROP TABLE IF EXISTS `t_dept`;
+CREATE TABLE `t_dept`  (
+                           `id` bigint NOT NULL COMMENT 'id，遵循雪花算法，为19位数字',
+                           `name` varchar(255) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '名称',
+                           `parentId` bigint NULL DEFAULT NULL COMMENT '父id',
+                           `sort_order` int NULL DEFAULT 0 COMMENT '排序',
+                           `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态：0-启用；1-禁用',
+                           `remark` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                           `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                           `create_by` bigint NOT NULL COMMENT '创建者',
+                           `update_at` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                           `update_by` bigint NULL DEFAULT NULL COMMENT '更新者',
+                           `delete_flag` tinyint(1) NOT NULL DEFAULT 0 COMMENT '删除标志：0-未删除；1-已删除',
+                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '部门信息' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Table structure for t_role
+-- ----------------------------
+DROP TABLE IF EXISTS `t_role`;
+CREATE TABLE `t_role`  (
+                           `id` bigint NOT NULL COMMENT 'id，遵循雪花算法，为19位数字',
+                           `name` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '名称',
+                           `desc` varchar(64) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NOT NULL COMMENT '简介',
+                           `status` tinyint(1) NOT NULL DEFAULT 0 COMMENT '状态：0-启用；1-禁用',
+                           `remark` varchar(512) CHARACTER SET utf8mb4 COLLATE utf8mb4_unicode_ci NULL DEFAULT NULL COMMENT '备注',
+                           `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                           `create_by` bigint NOT NULL COMMENT '创建者',
+                           `update_at` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                           `update_by` bigint NULL DEFAULT NULL COMMENT '更新者',
+                           `delete_flag` tinyint(1) NOT NULL DEFAULT 0 COMMENT '删除标志：0-未删除；1-已删除',
+                           PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '角色信息' ROW_FORMAT = DYNAMIC;
+
 -- ----------------------------
 -- Table structure for t_user
 -- ----------------------------
@@ -45,7 +83,37 @@ CREATE TABLE `t_user`  (
                            `update_by` bigint NULL DEFAULT NULL COMMENT '更新者',
                            `delete_flag` tinyint(1) NOT NULL DEFAULT 0 COMMENT '删除标志：0-未删除；1-已删除',
                            PRIMARY KEY (`id`) USING BTREE
-) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户信息' ROW_FORMAT = Dynamic;
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户信息' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Table structure for t_user_dept
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_dept`;
+CREATE TABLE `t_user_dept`  (
+                                `id` bigint NOT NULL COMMENT 'id，遵循雪花算法，为19位数字',
+                                `user_id` bigint NOT NULL COMMENT '用户id',
+                                `dept_id` bigint NOT NULL COMMENT '部门id',
+                                `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `create_by` bigint NOT NULL COMMENT '创建者',
+                                `update_at` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `update_by` bigint NULL DEFAULT NULL COMMENT '更新者',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户部门关系' ROW_FORMAT = DYNAMIC;
+
+-- ----------------------------
+-- Table structure for t_user_role
+-- ----------------------------
+DROP TABLE IF EXISTS `t_user_role`;
+CREATE TABLE `t_user_role`  (
+                                `id` bigint NOT NULL COMMENT 'id，遵循雪花算法，为19位数字',
+                                `user_id` bigint NOT NULL COMMENT '用户id',
+                                `role_id` bigint NOT NULL COMMENT '部门id',
+                                `create_at` datetime NOT NULL DEFAULT CURRENT_TIMESTAMP COMMENT '创建时间',
+                                `create_by` bigint NOT NULL COMMENT '创建者',
+                                `update_at` datetime NULL DEFAULT NULL ON UPDATE CURRENT_TIMESTAMP COMMENT '更新时间',
+                                `update_by` bigint NULL DEFAULT NULL COMMENT '更新者',
+                                PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8mb4 COLLATE = utf8mb4_unicode_ci COMMENT = '用户角色关系' ROW_FORMAT = DYNAMIC;
 
 -- 打开外键检查
 SET FOREIGN_KEY_CHECKS = 1;

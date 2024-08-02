@@ -1,37 +1,9 @@
 spring:
   application:
     name: mc-erp-admin
-  datasource:
-    url: jdbc:mysql://106.15.186.91:3306/mc-erp-admin?useUnicode=true&characterEncoding=utf-8&useLegacyDatetimeCode=false&connectionTimeZone=Asia/Shanghai
-    username: root
-    password: '@rootROOT'
-    driver-class-name: com.mysql.cj.jdbc.Driver
-    type: com.alibaba.druid.pool.DruidDataSource
-    druid:
-      async-init: true # 异步初始化连接
-      initial-size: 1 # 初始化时创建的连接数
-      min-idle: 5 # 连接池中保持的最小空闲连接数
-      max-active: 20 # 连接池中同时可分配的最大连接数
-      max-wait: 3000 # 当连接池中没有可用连接时，等待连接被分配的最长时间，单位为毫秒。如果超过这个时间则抛出异常
-      time-between-eviction-runs-millis: 60000 # 连接池中的空闲连接验证、清理线程的运行间隔时间，单位为毫秒
-      min-evictable-idle-time-millis: 300000 # 连接在池中保持空闲而不被驱逐的最小时间，单位为毫秒
-      validation-query: SELECT 1 # 用于验证连接是否有效的 SQL 查询
-      validation-query-timeout: 1000 # 用于验证连接的超时时长，单位为毫秒
-      test-while-idle: true # 是否在连接空闲时进行连接验证
-      test-on-borrow: false # 是否在借用连接时进行连接验证
-      test-on-return: false # 是否在归还连接时进行连接验证
-      pool-prepared-statements: true # 是否缓存 PreparedStatement，也就是 PSCache
-      max-pool-prepared-statement-per-connection-size: 20 # 每个连接上缓存的 PreparedStatement 的最大数目
-      connection-error-retry-attempts: 0  # 获取连接失败时的重试次数
-      break-after-acquire-failure: true  # 获取连接失败后是否中断
-      time-between-connect-error-millis: 30000 # 连接出错后重试时间间隔，单位为毫秒
-logging:
-  level:
-    com:
-      alibaba:
-        druid: DEBUG
-login:
-  jwt:
-    public-key: 'MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAtyoRPha+1YMGhpLnvfmo93T2UEBzVDRBlPiQiu1jALgsh9hToqC+mAlTXN/1UAb7RV8efUYYJsCGjdTWll5LkYLOeo/QQuZ71w/K4CQIiIanJ6BIZAWspH5eCt9sjgCifIY1SnIUpGYVoKImAD7U577ch/L70LjUy78m+F+G+6kb7LzQzuOl7g1N1iW6122jVAVcwOGJRnQ3FX0RJfeCl9AXQvO6B1s+a5gUF3gYt8u3K7U49eYIEtgT3NhmX9DhxkmdkfEuGtJb9xuDzTEQDyq2D2fq9bbZWaX0GpRb8z61d/sADnLd054TEtVAwE+Y7qOz8sGUVwfXFva0GPnWeQIDAQAB'
-    private-key: 'MIIEvQIBADANBgkqhkiG9w0BAQEFAASCBKcwggSjAgEAAoIBAQC3KhE+Fr7VgwaGkue9+aj3dPZQQHNUNEGU+JCK7WMAuCyH2FOioL6YCVNc3/VQBvtFXx59RhgmwIaN1NaWXkuRgs56j9BC5nvXD8rgJAiIhqcnoEhkBaykfl4K32yOAKJ8hjVKchSkZhWgoiYAPtTnvtyH8vvQuNTLvyb4X4b7qRvsvNDO46XuDU3WJbrXbaNUBVzA4YlGdDcVfREl94KX0BdC87oHWz5rmBQXeBi3y7crtTj15ggS2BPc2GZf0OHGSZ2R8S4a0lv3G4PNMRAPKrYPZ+r1ttlZpfQalFvzPrV3+wAOct3TnhMS1UDAT5juo7PywZRXB9cW9rQY+dZ5AgMBAAECggEAVEtu7gUnxDltumdHcb3BTkksxpgyu3DlMbsHQninlIAuNkKPkwupS20XSWnkivT7lNyGup6UpNj707A9Jay12Hy7q9odvXw3SC2Db44Fw1c8/FaemjGmV3m0rApQ+jU+klJtmhpQd6xnjaqyFHDWKOVEtuhTjaZSgIYzWCEWjSBpBX1iTxpG6ACYyDBU16gC8LCCoQITV64btRUYVHezkkgXk6j8h8tND5u17MXIpyP7Cy3fK6wNIhqnwaJyoxVcmFWOcf/l8HpcBtfEhnNGQ7C+0ShoBjxnFsXXJEYdjavCeH9GQNs2k3UC7vaHkdCB055+Q4vK2B/6dnHnPPlWpQKBgQDzY1fnrzFs2D8UTusHysagp9oxVvnKnCuROS30Aei+bxciI0YR+zG9pmWd9M3vVnrQNPJ848G67SmTDXakVg7eISsn9SyjhxsA9RdWHwCSF5FYpOPicOP2SDDRPJBF+iIJXqSwMpfjb0hKbzcw1mB1RR8+VtWfz8v4rNDqeMUBGwKBgQDAp9PzE2r5+eS6R/6OAkO7dmuQTbYa8kgk0bfMc4L0hckPXrzfl+o1+gtCpyT8Fwi4dT8PiyihvDBVXf3p858qh7Ugvy7KuXekVQUklpHS6cfoWEyQZxzn+ytTwYMFpySQj/tGLFL3WP2MyJPqLJi2FXZajLg4BhgAwKtAjsJT+wKBgQCUgWU9pJQPydKTXaPi2UNg+4oS2PMJQUkED1OOsyuEJtyCo+s5RYAQK9uNCbYt9yJwsB3VPlMS72qSo4BkvW3M84gVlW9rSCCd8O4QSlJa0a6J2/KAVEmEGIBQ6xdM21axSOJL8FLlHx2I7VtLnUK1yztJGkq2fGAEl83Rg2cRSQKBgAC8IyjYOB4//8leIPB1vcBnUT25riooJnJNgn/7KNK59+xhFiNcNv6Bt61HafK0O8pIWDc89qi3SQ/qTd+omEDXR6+aSxlm37f2wxBCqse9MJAIVjJu0kNoR+AH6vIIkzEh+3lnDeH3qu/wi+/mv6ZiKpNp2gIMs+a81WpnoQIlAoGAGyfgMf82xCh/F1JMUo1BCA6iSqorTueyisqkVmsJH/yVq8B4PStQ7T/7QMfdrB8VScLfhi1REtcnTijWugOkHjmaQ/wfsVVE2siZOP7wnJWoQESTVCbG9jdPfZcqABQgDR02a0fsnUIqnDWI0XLulynBIuHmIbPsSOE1V+Y720g='
-    expire-time: 10
+  profiles:
+    active: dev
+server:
+  port: 8081
+  servlet:
+    context-path: /admin
