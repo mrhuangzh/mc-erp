@@ -11,6 +11,9 @@ import lombok.Getter;
 @Getter
 @AllArgsConstructor
 public enum RequestHeaderEnum {
-    REQUEST_ID_KEY("X-Request-Id");
+    REQUEST_ID_KEY("X-Request-Id"),
+    BEARER_KEY("Bearer "),
+
+    ;
     public final String attribute;
 }

@@ -1,5 +1,6 @@
 package com.mc.erp.core.handler;
 
+import com.mc.erp.common.enums.RequestHeaderEnum;
 import com.mc.erp.common.enums.ResponseCodeEnum;
 import com.mc.erp.common.exception.BusinessException;
 import com.mc.erp.common.response.CommonResponse;
@@ -116,8 +117,9 @@ public class GlobalExceptionHandler {
     @ExceptionHandler(value = Exception.class)
     public CommonResponse<Object> customizeException(HttpServletRequest req, Exception e) {
         log.error("请求发生错误，错误信息：{}", e.getMessage());
-        if (e instanceof BusinessException) {
-            return CommonResponse.failed(((BusinessException) e).getCode(), e.getMessage());
+        if (e instanceof BusinessException e1) {
+            return CommonResponse.restResponse(e1.getCode(), e1.getMessage(), null,
+                    req.getHeader(RequestHeaderEnum.REQUEST_ID_KEY.getAttribute()));
         }
         return CommonResponse.failed(ResponseCodeEnum.SYSTEM_EXCEPTION);
     }

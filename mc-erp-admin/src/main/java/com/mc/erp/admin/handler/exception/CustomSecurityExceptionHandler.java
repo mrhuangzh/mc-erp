@@ -49,7 +49,6 @@ public class CustomSecurityExceptionHandler extends OncePerRequestFilter {
 
     private static void extracted(HttpServletResponse response, CommonResponse<Object> e) throws IOException {
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
-        response.setStatus(HttpServletResponse.SC_OK);
         response.setStatus(HttpStatus.OK.value());
         PrintWriter writer = response.getWriter();
         writer.write(JSON.toJSONString(e));

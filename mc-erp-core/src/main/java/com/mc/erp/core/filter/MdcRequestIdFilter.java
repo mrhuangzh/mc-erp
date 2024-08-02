@@ -33,11 +33,12 @@ public class MdcRequestIdFilter extends OncePerRequestFilter {
             String requestId = request.getHeader(RequestHeaderEnum.REQUEST_ID_KEY.getAttribute());
             if (requestId == null) {
                 requestId = UUID.randomUUID().toString();
+                MDC.put(LogTraceEnum.TRACE_ID.getAttribute(), requestId);
                 log.info("*** ---- ThreadId: {} |----| requestId为空，自动生成 {}",
                         Thread.currentThread().getId(), requestId);
             }
-            MDC.put(RequestHeaderEnum.REQUEST_ID_KEY.getAttribute(), requestId);
             MDC.put(LogTraceEnum.TRACE_ID.getAttribute(), requestId);
+            MDC.put(RequestHeaderEnum.REQUEST_ID_KEY.getAttribute(), requestId);
             filterChain.doFilter(request, response);
         } finally {
             MDC.remove(RequestHeaderEnum.REQUEST_ID_KEY.getAttribute());

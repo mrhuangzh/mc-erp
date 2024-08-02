@@ -1,7 +1,7 @@
 package com.mc.erp.admin.handler;
 
 import com.alibaba.fastjson2.JSON;
-import com.mc.erp.admin.enums.ErrorCodeEnum;
+import com.mc.erp.common.enums.CommonErrorCodeEnum;
 import com.mc.erp.common.response.CommonResponse;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
@@ -27,7 +27,7 @@ public class LoginFailHandler implements AuthenticationFailureHandler {
         log.error("登录失败", exception);
         response.setContentType(MediaType.APPLICATION_JSON_UTF8_VALUE);
         PrintWriter writer = response.getWriter();
-        writer.print(JSON.toJSONString(CommonResponse.failed(ErrorCodeEnum.BAD_CREDENTIALS)));
+        writer.print(JSON.toJSONString(CommonResponse.failed(CommonErrorCodeEnum.BAD_CREDENTIALS)));
         writer.flush();
         writer.close();
     }

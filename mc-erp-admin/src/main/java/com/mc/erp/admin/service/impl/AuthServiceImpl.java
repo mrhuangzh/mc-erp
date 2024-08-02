@@ -1,11 +1,11 @@
 package com.mc.erp.admin.service.impl;
 
-import com.mc.erp.admin.enums.ErrorCodeEnum;
 import com.mc.erp.admin.domain.param.UsernameLoginParam;
+import com.mc.erp.admin.domain.vo.UserLoginVo;
+import com.mc.erp.admin.filter.usernameLogin.UsernameAuthenticationProvider;
 import com.mc.erp.admin.service.AuthService;
 import com.mc.erp.admin.service.JwtService;
-import com.mc.erp.admin.filter.usernameLogin.UsernameAuthenticationProvider;
-import com.mc.erp.admin.domain.vo.UserLoginVo;
+import com.mc.erp.common.enums.CommonErrorCodeEnum;
 import com.mc.erp.common.exception.BusinessException;
 import jakarta.annotation.Resource;
 import org.springframework.beans.factory.annotation.Value;
@@ -56,7 +56,7 @@ public class AuthServiceImpl implements AuthService {
     public UserLoginVo getUserLoginVo(Authentication authentication) {
         Object principal = authentication.getPrincipal();
         if (!(principal instanceof UserLoginVo currentUser)) {
-            throw new BusinessException(ErrorCodeEnum.JWT_INVALID.getCode(),
+            throw new BusinessException(CommonErrorCodeEnum.JWT_INVALID.getCode(),
                     "登陆认证成功后，authentication.getPrincipal()返回的Object对象必须是：UserVo！");
         }
 
