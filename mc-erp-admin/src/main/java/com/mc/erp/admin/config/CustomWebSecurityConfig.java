@@ -23,6 +23,9 @@ import org.springframework.security.web.SecurityFilterChain;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.context.SecurityContextHolderFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import java.util.List;
 
@@ -42,6 +45,20 @@ public class CustomWebSecurityConfig {
         return new BCryptPasswordEncoder();
     }
 
+    @Bean
+    public CorsFilter corsFilter() {
+        CorsConfiguration configuration = new CorsConfiguration();
+        configuration.addAllowedOrigin("http://localhost:5173");// 允许谁跨域
+//        configuration.addAllowedOrigin("*");// 允许所有人跨域
+        configuration.setAllowCredentials(true);// 传cookie
+        configuration.addAllowedMethod("*");// 允许哪些方法跨域 post get
+        configuration.addAllowedHeader("*");// 允许哪些头信息
+        UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+        source.registerCorsConfiguration("/**", configuration);// 拦截一切请求
+        return new CorsFilter(source);
+    }
+
+
     /**
      * 禁用一些默认filter，在应用启动时，将不再初始化被禁用的组件到 filter chain 中
      *
@@ -59,6 +76,7 @@ public class CustomWebSecurityConfig {
         httpSecurity.exceptionHandling(exception ->
                 exception.authenticationEntryPoint(new CustomAuthenticationExceptionHandler())
                         .accessDeniedHandler(new CustomAuthorizationExceptionHandler()));
+        httpSecurity.cors(AbstractHttpConfigurer::disable);
         httpSecurity.addFilterBefore(new CustomSecurityExceptionHandler(), SecurityContextHolderFilter.class);
     }
 
@@ -72,7 +90,7 @@ public class CustomWebSecurityConfig {
     @Bean
     public SecurityFilterChain usernameLoginControllerFilter(HttpSecurity httpSecurity) throws Exception {
         commonFilter(httpSecurity);
-        httpSecurity.securityMatcher("/auth/username/login").authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
+        httpSecurity.securityMatcher("/auth/account/login").authorizeHttpRequests(authorize -> authorize.anyRequest().permitAll());
         return httpSecurity.build();
     }
 

@@ -26,7 +26,7 @@ public class AuthController {
     @Resource
     private AuthService authService;
 
-    @PostMapping("/username/login")
+    @PostMapping("/account/login")
     @Operation(summary = "账号密码登录", description = "账号密码登录")
     public CommonResponse<UserLoginVo> usernameLogin(@RequestBody UsernameLoginParam param) {
         UserLoginVo currentUser = authService.usernameLogin(param);

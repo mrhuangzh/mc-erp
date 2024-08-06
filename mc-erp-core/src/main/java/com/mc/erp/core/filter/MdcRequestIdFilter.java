@@ -34,8 +34,8 @@ public class MdcRequestIdFilter extends OncePerRequestFilter {
             if (requestId == null) {
                 requestId = UUID.randomUUID().toString();
                 MDC.put(LogTraceEnum.TRACE_ID.getAttribute(), requestId);
-                log.info("*** ---- ThreadId: {} |----| requestId为空，自动生成 {}",
-                        Thread.currentThread().getId(), requestId);
+                log.info("*** ---- ThreadId: {} |----| requestId为空，自动生成: {}， uri: {}， method: {}",
+                        Thread.currentThread().getId(), requestId, request.getRequestURI(), request.getMethod());
             }
             MDC.put(LogTraceEnum.TRACE_ID.getAttribute(), requestId);
             MDC.put(RequestHeaderEnum.REQUEST_ID_KEY.getAttribute(), requestId);
