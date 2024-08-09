@@ -62,8 +62,8 @@ public class ${table.controllerName} {
     <#assign entity = entity>
     <#assign entityFirstLower = (entity?substring(0, 1)?lower_case + entity?substring(1))>
     public CommonResponse<${entity}> info(@RequestParam("id") Long id) {
-        ${entity} ${entity} = ${serviceNameFirstLower}.getById(id);
-        return CommonResponse.success();
+        ${entity} ${entityFirstLower} = ${serviceNameFirstLower}.getById(id);
+        return CommonResponse.success(${entityFirstLower});
     }
 
 }
